@@ -27,10 +27,21 @@ async function run() {
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
 
-        const usersCollection = client.db("Blood-Donation").collection("users");
+        const taskCollection = client.db("Task-Management").collection("taskCollection");
         app.get('/', (req, res) => {
-            res.send('lkdjs')
+            res.send('get data')
         })
+        app.get('/createTask', async (req, res) => {
+            const result = await taskCollection.find().toArray();
+            res.send(result)
+        })
+        app.post('/createTask', async (req, res) => {
+            const data = req.body;
+            console.log(data);
+            const result = await taskCollection.insertOne(data);
+            res.send(result)
+        })
+
 
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
