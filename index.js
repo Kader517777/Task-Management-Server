@@ -29,7 +29,7 @@ async function run() {
 
         const taskCollection = client.db("Task-Management").collection("taskCollection");
         app.get('/', (req, res) => {
-            res.send('get data')
+            res.send({ status: 'get data' })
         })
         app.get('/createTask', async (req, res) => {
             const result = await taskCollection.find().toArray();
